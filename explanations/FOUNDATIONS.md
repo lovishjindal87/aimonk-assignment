@@ -131,7 +131,7 @@ The assignment has a special rule:
 
 If a node currently has `data`, then clicking “Add Child” should:
 - remove/replace that `data`
-- turn the node into a parent by creating `children: [ { name: "New Child", data: "Data" } ]`
+- turn the node into a parent by creating `children: [ { name: "New Child", data: "Data" } ]`fv
 
 If it’s already a parent (already has children), then “Add Child” should:
 - append another child to its children list

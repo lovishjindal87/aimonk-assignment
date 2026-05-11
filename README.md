@@ -36,7 +36,7 @@ Open:
 - `http://localhost:5173`
 
 ## Toasts
-Small **success / error** toasts (bottom-right, fade) only for **server outcomes**: load trees, save (export), delete saved tree, and failures. No noisy “info” toasts for routine edits.
+Small **success / error** toasts (bottom-right, fade) only for **server outcomes**: load trees, save (export), delete saved tree, and failures.
 
 ## What you can do in the UI
 - **Collapse/expand**: click the `v` / `>` button next to any tag (including root)
