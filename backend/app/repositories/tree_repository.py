@@ -1,5 +1,3 @@
-"""Persistence for tag trees: insert, replace, list, delete (SQLAlchemy)."""
-
 from __future__ import annotations
 
 from sqlalchemy import delete, select

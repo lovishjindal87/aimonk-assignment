@@ -1,5 +1,3 @@
-"""Pydantic schemas for API request/response bodies (nested tag JSON)."""
-
 from __future__ import annotations
 
 from pydantic import BaseModel, model_validator
