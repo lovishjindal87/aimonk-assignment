@@ -1,0 +1,275 @@
+.page {
+  min-height: 100vh;
+  padding: 28px 18px 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.titleBlock h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.subtitle {
+  margin: 6px 0 0;
+  opacity: 0.8;
+}
+
+.exportBtn {
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #2563eb;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.exportBtn:hover {
+  filter: brightness(1.05);
+}
+
+.secondaryBtn {
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(226, 232, 240, 0.95);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.secondaryBtn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.treeActions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.dangerBtn {
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(239, 68, 68, 0.12);
+  color: rgba(254, 226, 226, 0.95);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.dangerBtn:hover {
+  background: rgba(239, 68, 68, 0.18);
+}
+
+.dangerBtn:disabled,
+.exportBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.main {
+  display: block;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.panel {
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 14px;
+  background: rgba(15, 23, 42, 0.35);
+  backdrop-filter: blur(6px);
+  padding: 14px;
+}
+
+.treeHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.treeTitle h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.treeMeta {
+  margin-top: 8px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(2, 6, 23, 0.35);
+}
+
+.pillWarn {
+  border-color: rgba(245, 158, 11, 0.5);
+  background: rgba(245, 158, 11, 0.12);
+}
+
+.pillInfo {
+  border-color: rgba(59, 130, 246, 0.5);
+  background: rgba(59, 130, 246, 0.12);
+}
+
+.pillError {
+  border-color: rgba(239, 68, 68, 0.5);
+  background: rgba(239, 68, 68, 0.12);
+}
+
+.treeGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  .treeGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.treePane,
+.exportPane {
+  min-width: 0;
+}
+
+.panelHeader h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.hint {
+  margin: 6px 0 12px;
+  opacity: 0.8;
+  font-size: 13px;
+}
+
+.exportBox {
+  width: 100%;
+  min-height: 520px;
+  resize: vertical;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    monospace;
+  font-size: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(2, 6, 23, 0.6);
+  color: rgba(226, 232, 240, 0.95);
+  box-sizing: border-box;
+}
+
+.tag {
+  margin: 10px 0;
+}
+
+.tagHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(180deg, rgba(37, 99, 235, 0.85), rgba(37, 99, 235, 0.65));
+  border: 1px solid rgba(37, 99, 235, 0.35);
+  color: white;
+  border-radius: 12px;
+  padding: 10px 10px;
+}
+
+.collapseBtn {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.tagName {
+  font-weight: 700;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+  background: transparent;
+  border: 1px solid transparent;
+  color: white;
+  padding: 6px 8px;
+  border-radius: 10px;
+  cursor: text;
+}
+
+.tagName:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.nameInput {
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(2, 6, 23, 0.35);
+  color: white;
+}
+
+.addChildBtn {
+  border-radius: 10px;
+  padding: 7px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.tagBody {
+  padding: 10px 8px 2px;
+}
+
+.dataRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dataLabel {
+  width: 44px;
+  opacity: 0.85;
+  font-size: 13px;
+}
+
+.dataInput {
+  flex: 1;
+  padding: 10px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(2, 6, 23, 0.5);
+  color: rgba(226, 232, 240, 0.95);
+}
