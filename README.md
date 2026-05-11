@@ -4,7 +4,7 @@ This repo contains:
 - `frontend/`: Vue 3 + TypeScript UI (Vite)
 - `backend/`: FastAPI + SQLite API
 
-**Backend layout:** `app/main.py` mounts routers; `app/api/routes/` holds HTTP handlers; `app/schemas/` is Pydantic; `app/repositories/` is SQLAlchemy persistence; `app/models/` are ORM tables; `app/db/` is engine + sessions. See `explanations/STRUCTURE.md`.
+**Backend layout:** `app/main.py` mounts routers; `app/api/routes/` holds HTTP handlers; `app/schemas/` is Pydantic; `app/repositories/` is SQLAlchemy persistence; `app/models/` are ORM tables; `app/db/` is engine + sessions.
 
 ## Run locally
 
