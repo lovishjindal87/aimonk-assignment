@@ -1,8 +1,10 @@
 # AIMonk Full Stack Assignment (Nested Tags Tree)
 
 This repo contains:
-- `frontend/`: React + TypeScript UI
+- `frontend/`: Vue 3 + TypeScript UI (Vite)
 - `backend/`: FastAPI + SQLite API
+
+**Backend layout:** `app/main.py` mounts routers; `app/api/routes/` holds HTTP handlers; `app/schemas/` is Pydantic; `app/repositories/` is SQLAlchemy persistence; `app/models/` are ORM tables; `app/db/` is engine + sessions. See `explanations/STRUCTURE.md`.
 
 ## Run locally
 
@@ -21,7 +23,7 @@ Verify:
 - `GET` `http://localhost:8000/health`
 - `GET` `http://localhost:8000/trees`
 
-### Frontend (React)
+### Frontend (Vue)
 In a second terminal:
 
 ```bash
@@ -32,6 +34,9 @@ npm run dev
 
 Open:
 - `http://localhost:5173`
+
+## Toasts
+Small **success / error** toasts (bottom-right, fade) only for **server outcomes**: load trees, save (export), delete saved tree, and failures. No noisy “info” toasts for routine edits.
 
 ## What you can do in the UI
 - **Collapse/expand**: click the `v` / `>` button next to any tag (including root)

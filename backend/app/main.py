@@ -1,11 +1,12 @@
-from fastapi import Depends, FastAPI, HTTPException
+"""Application entry: FastAPI instance, middleware, and mounted routers."""
+
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy.orm import Session
 
-from . import crud
-from .db import Base, engine, get_db
-from .schemas import TreeCreate, TreeOut, TreesOut, TreeUpdate
-
+from app.api.routes import health, trees
+from app.db.base import Base
+from app.db.session import engine
+from app.models import Tag, Tree  # noqa: F401 — register models with Base.metadata
 
 app = FastAPI(title="AIMonk Tags Tree API")
 
@@ -19,44 +20,5 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-@app.get("/health")
-def health():
-    return {"ok": True}
-
-
-@app.get("/trees", response_model=TreesOut)
-def get_trees(db: Session = Depends(get_db)):
-    items = []
-    for tr, root in crud.list_trees(db):
-        items.append(TreeOut(id=tr.id, tree=root))
-    return TreesOut(items=items)
-
-
-@app.post("/trees", response_model=TreeOut)
-def post_tree(payload: TreeCreate, db: Session = Depends(get_db)):
-    tr = crud.create_tree(db, root=payload.tree)
-    loaded = crud.get_tree(db, tree_id=tr.id)
-    assert loaded is not None
-    tree, root = loaded
-    return TreeOut(id=tree.id, tree=root)
-
-
-@app.put("/trees/{tree_id}", response_model=TreeOut)
-def put_tree(tree_id: int, payload: TreeUpdate, db: Session = Depends(get_db)):
-    tr = crud.replace_tree(db, tree_id=tree_id, root=payload.tree)
-    if not tr:
-        raise HTTPException(status_code=404, detail="Tree not found")
-    loaded = crud.get_tree(db, tree_id=tree_id)
-    assert loaded is not None
-    tree, root = loaded
-    return TreeOut(id=tree.id, tree=root)
-
-
-@app.delete("/trees/{tree_id}")
-def delete_tree(tree_id: int, db: Session = Depends(get_db)):
-    ok = crud.delete_tree(db, tree_id=tree_id)
-    if not ok:
-        raise HTTPException(status_code=404, detail="Tree not found")
-    return {"ok": True}
-
+app.include_router(health.router)
+app.include_router(trees.router, prefix="/trees")

@@ -7,7 +7,6 @@ type RawTagNode = {
 }
 
 function createId() {
-  // Good enough for UI keys; backend will assign real IDs later.
   return globalThis.crypto?.randomUUID?.() ?? `id_${Math.random().toString(16).slice(2)}`
 }
 
@@ -49,6 +48,3 @@ export const rawInitialTree: RawTagNode = {
 export function makeInitialTree(): TagNode {
   return withIds(rawInitialTree)
 }
-
-export const initialTree: TagNode = makeInitialTree()
-

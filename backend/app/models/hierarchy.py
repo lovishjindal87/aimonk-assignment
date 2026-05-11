@@ -1,3 +1,5 @@
+"""ORM models for stored tag trees (one `Tree` row, many `Tag` rows)."""
+
 from __future__ import annotations
 
 import datetime as dt
@@ -5,7 +7,7 @@ import datetime as dt
 from sqlalchemy import DateTime, ForeignKey, Integer, String, Text, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from .db import Base
+from app.db.base import Base
 
 
 class Tree(Base):
@@ -34,4 +36,3 @@ class Tag(Base):
     tree: Mapped[Tree] = relationship("Tree", back_populates="tags")
     parent: Mapped[Tag | None] = relationship("Tag", remote_side="Tag.id", back_populates="children")
     children: Mapped[list[Tag]] = relationship("Tag", back_populates="parent", cascade="all, delete-orphan")
-

@@ -1,10 +1,12 @@
+"""Persistence for tag trees: insert, replace, list, delete (SQLAlchemy)."""
+
 from __future__ import annotations
 
 from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
 
-from .models import Tag, Tree
-from .schemas import TagNode
+from app.models.hierarchy import Tag, Tree
+from app.schemas.tree import TagNode
 
 
 def _insert_tag_subtree(
@@ -23,7 +25,7 @@ def _insert_tag_subtree(
         data=node.data,
     )
     db.add(tag)
-    db.flush()  # assigns tag.id so children can reference it
+    db.flush()
 
     if node.children:
         for idx, child in enumerate(node.children):
@@ -101,4 +103,3 @@ def delete_tree(db: Session, *, tree_id: int) -> bool:
     db.delete(tree)
     db.commit()
     return True
-

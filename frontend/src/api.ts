@@ -46,4 +46,3 @@ export async function deleteTree(id: number): Promise<void> {
   const res = await fetch(`${API_BASE}/trees/${id}`, { method: 'DELETE' })
   if (!res.ok) throw new Error(`DELETE /trees/${id} failed: ${res.status}`)
 }
-

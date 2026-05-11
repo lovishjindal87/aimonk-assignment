@@ -1,9 +1,11 @@
+"""Database engine, session factory, and FastAPI dependency."""
+
 from __future__ import annotations
 
 from collections.abc import Generator
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import Session, declarative_base, sessionmaker
+from sqlalchemy.orm import Session, sessionmaker
 
 DATABASE_URL = "sqlite:///./aimonk.db"
 
@@ -14,8 +16,6 @@ engine = create_engine(
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-Base = declarative_base()
-
 
 def get_db() -> Generator[Session, None, None]:
     db = SessionLocal()
@@ -23,4 +23,3 @@ def get_db() -> Generator[Session, None, None]:
         yield db
     finally:
         db.close()
-

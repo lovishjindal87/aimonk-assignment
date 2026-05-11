@@ -32,9 +32,6 @@ export function addChild(root: TagNode, targetId: string): TagNode {
     if (n.children && n.children.length > 0) {
       return { ...n, children: [...n.children, newChild] }
     }
-
-    // Replace leaf "data" with "children" containing a single new child.
     return { id: n.id, name: n.name, children: [newChild] }
   })
 }
-

@@ -14,5 +14,3 @@ backend/*.sqlite3
 # Python
 **/__pycache__/
 *.pyc
-
-explanations

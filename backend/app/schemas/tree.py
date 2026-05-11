@@ -1,8 +1,8 @@
+"""Pydantic schemas for API request/response bodies (nested tag JSON)."""
+
 from __future__ import annotations
 
-from typing import Annotated, Literal
-
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, model_validator
 
 
 class TagNode(BaseModel):
@@ -34,4 +34,3 @@ class TreeOut(BaseModel):
 
 class TreesOut(BaseModel):
     items: list[TreeOut]
-
