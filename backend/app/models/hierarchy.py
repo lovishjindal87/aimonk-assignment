@@ -1,5 +1,3 @@
-"""ORM models for stored tag trees (one `Tree` row, many `Tag` rows)."""
-
 from __future__ import annotations
 
 import datetime as dt
