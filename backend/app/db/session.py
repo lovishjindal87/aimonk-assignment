@@ -5,6 +5,7 @@ from collections.abc import Generator
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy.pool import NullPool
 
 
 def _normalize_database_url(url: str) -> str:
@@ -14,14 +15,17 @@ def _normalize_database_url(url: str) -> str:
     return url
 
 
-_raw_url = os.environ.get("DATABASE_URL", "sqlite:///./aimonk.db")
+_raw_url = os.environ.get("DATABASE_URL") or "sqlite:///./aimonk.db"
+# Vercel serverless: cwd is not a writable data dir — relative SQLite fails at runtime.
+if os.environ.get("VERCEL") and _raw_url.startswith("sqlite:///./"):
+    _raw_url = "sqlite:////tmp/aimonk.db"
 DATABASE_URL = _normalize_database_url(_raw_url)
 
 _engine_kw: dict = {}
 if DATABASE_URL.startswith("sqlite"):
     _engine_kw["connect_args"] = {"check_same_thread": False}
 else:
-    _engine_kw["pool_pre_ping"] = True
+    _engine_kw["poolclass"] = NullPool
 
 engine = create_engine(DATABASE_URL, **_engine_kw)
 

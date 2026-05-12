@@ -61,4 +61,11 @@ Small **success / error** toasts (bottom-right, fade) only for **server outcomes
 - **Rename (bonus)**: click a tag name, type a new name, press Enter
 - **Export**: prints JSON and saves to the backend (POST for new trees, PUT for saved trees)
 
+## Vercel API: 500 / FUNCTION_INVOCATION_FAILED
+
+1. **Logs:** Vercel project → **Deployments** → latest → **Functions** / **Runtime Logs** — the Python traceback shows the real error (do not paste secrets here).
+2. **`DATABASE_URL`:** Set your Neon (or other) URL on the **backend** Vercel project. Without it, the app used to default to a **SQLite file in cwd**, which is **not writable** on serverless; the code now falls back to **`/tmp`** on Vercel only for that default — for real data you still need Postgres + `DATABASE_URL`.
+3. **`CORS_ORIGINS`:** Use your real frontend origin(s), e.g. `https://your-app.vercel.app`. Do **not** set `CORS_ORIGINS=*` with cookies/credentials (Starlette rejects that and can crash startup); list explicit origins instead.
+4. **Neon URL:** Include `?sslmode=require` as Neon provides; keep the full string from “Copy snippet”.
+
 
