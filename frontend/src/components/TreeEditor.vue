@@ -18,7 +18,7 @@ const props = defineProps<{
 const tree = ref<TagNode>(props.initial)
 const collapsedIds = ref<Set<string>>(new Set())
 const exported = ref('')
-const saving = ref(false)
+const pending = ref<null | 'save' | 'delete'>(null)
 const error = ref('')
 const savedId = ref<number | undefined>(props.treeId)
 
@@ -53,7 +53,7 @@ function onAddChild(id: string) {
 
 async function handleExportAndSave() {
   exported.value = exportedJson.value
-  saving.value = true
+  pending.value = 'save'
   error.value = ''
   try {
     const nextId = await props.onSave(savedId.value, exportedTree.value)
@@ -62,19 +62,19 @@ async function handleExportAndSave() {
   } catch (e) {
     error.value = e instanceof Error ? e.message : 'Failed to save'
   } finally {
-    saving.value = false
+    pending.value = null
   }
 }
 
 async function handleDelete() {
-  saving.value = true
+  pending.value = 'delete'
   error.value = ''
   try {
     await props.onDelete(props.clientId, savedId.value)
   } catch (e) {
     error.value = e instanceof Error ? e.message : 'Failed to delete'
   } finally {
-    saving.value = false
+    pending.value = null
   }
 }
 </script>
@@ -87,13 +87,14 @@ async function handleDelete() {
         <div class="treeMeta">
           <span v-if="savedId" class="pill">Saved #{{ savedId }}</span>
           <span v-else class="pill pillWarn">Not saved</span>
-          <span v-if="saving" class="pill pillInfo">Saving…</span>
+          <span v-if="pending === 'save'" class="pill pillInfo">Saving…</span>
+          <span v-if="pending === 'delete'" class="pill pillInfo">Deleting…</span>
           <span v-if="error" class="pill pillError">{{ error }}</span>
         </div>
       </div>
       <div class="treeActions">
-        <button type="button" class="dangerBtn" :disabled="saving" @click="handleDelete">Delete</button>
-        <button type="button" class="exportBtn" :disabled="saving" @click="handleExportAndSave">Export</button>
+        <button type="button" class="dangerBtn" :disabled="pending !== null" @click="handleDelete">Delete</button>
+        <button type="button" class="exportBtn" :disabled="pending !== null" @click="handleExportAndSave">Export</button>
       </div>
     </header>
 
