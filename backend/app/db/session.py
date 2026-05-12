@@ -9,14 +9,12 @@ from sqlalchemy.pool import NullPool
 
 
 def _normalize_database_url(url: str) -> str:
-    # Some hosts (e.g. Render) supply postgres://; SQLAlchemy expects postgresql://
     if url.startswith("postgres://"):
         return "postgresql://" + url.removeprefix("postgres://")
     return url
 
 
 _raw_url = os.environ.get("DATABASE_URL") or "sqlite:///./aimonk.db"
-# Vercel serverless: cwd is not a writable data dir — relative SQLite fails at runtime.
 if os.environ.get("VERCEL") and _raw_url.startswith("sqlite:///./"):
     _raw_url = "sqlite:////tmp/aimonk.db"
 DATABASE_URL = _normalize_database_url(_raw_url)

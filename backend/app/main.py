@@ -20,7 +20,6 @@ app = FastAPI(title="AIMonk Tags Tree API")
 Base.metadata.create_all(bind=engine)
 
 _cors_allow = _cors_origins()
-# Starlette forbids allow_credentials=True with allow_origins=["*"] — would crash startup.
 _cors_credentials = "*" not in _cors_allow
 
 app.add_middleware(

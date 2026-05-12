@@ -4,6 +4,3 @@ mangum==0.19.0
 SQLAlchemy==2.0.34
 psycopg2-binary==2.9.10
 pydantic==2.11.5
-pydantic-settings==2.10.1
-python-multipart==0.0.9
-httpx==0.28.1

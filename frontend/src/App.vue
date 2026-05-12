@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { useToast } from 'vue-toastification'
+import { randomId } from './ids'
 import TreeEditor from './components/TreeEditor.vue'
 import { makeInitialTree, withIds } from './tagTree'
 import type { TagNode, TagNodeExport } from './tagTypes'
@@ -9,7 +10,7 @@ import { createTree, deleteTree, fetchTrees, updateTree } from './api'
 const toast = useToast()
 
 function newClientId() {
-  return globalThis.crypto?.randomUUID?.() ?? `c_${Math.random().toString(16).slice(2)}`
+  return randomId('c_')
 }
 
 type TreeRow = { clientId: string; id?: number; tree: TagNode }

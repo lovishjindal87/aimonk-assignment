@@ -1,8 +1,5 @@
 import type { TagNode } from './tagTypes'
-
-function createId() {
-  return globalThis.crypto?.randomUUID?.() ?? `id_${Math.random().toString(16).slice(2)}`
-}
+import { randomId } from './ids'
 
 export function updateNode(root: TagNode, targetId: string, updater: (n: TagNode) => TagNode): TagNode {
   if (root.id === targetId) return updater(root)
@@ -26,7 +23,7 @@ export function setNodeName(root: TagNode, targetId: string, name: string): TagN
 }
 
 export function addChild(root: TagNode, targetId: string): TagNode {
-  const newChild: TagNode = { id: createId(), name: 'New Child', data: 'Data' }
+  const newChild: TagNode = { id: randomId('id_'), name: 'New Child', data: 'Data' }
 
   return updateNode(root, targetId, (n) => {
     if (n.children && n.children.length > 0) {

@@ -1,5 +1,3 @@
-"""CRUD HTTP API for stored tag trees."""
-
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
@@ -12,9 +10,7 @@ router = APIRouter(tags=["trees"])
 
 @router.get("", response_model=TreesOut)
 def get_trees(db: Session = Depends(get_db)):
-    items = []
-    for tr, root in tree_repository.list_trees(db):
-        items.append(TreeOut(id=tr.id, tree=root))
+    items = [TreeOut(id=tr.id, tree=root) for tr, root in tree_repository.list_trees(db)]
     return TreesOut(items=items)
 
 
@@ -22,7 +18,8 @@ def get_trees(db: Session = Depends(get_db)):
 def post_tree(payload: TreeCreate, db: Session = Depends(get_db)):
     tr = tree_repository.create_tree(db, root=payload.tree)
     loaded = tree_repository.get_tree(db, tree_id=tr.id)
-    assert loaded is not None
+    if not loaded:
+        raise HTTPException(status_code=500, detail="Tree missing after create")
     tree, root = loaded
     return TreeOut(id=tree.id, tree=root)
 
@@ -33,7 +30,8 @@ def put_tree(tree_id: int, payload: TreeUpdate, db: Session = Depends(get_db)):
     if not tr:
         raise HTTPException(status_code=404, detail="Tree not found")
     loaded = tree_repository.get_tree(db, tree_id=tree_id)
-    assert loaded is not None
+    if not loaded:
+        raise HTTPException(status_code=500, detail="Tree missing after update")
     tree, root = loaded
     return TreeOut(id=tree.id, tree=root)
 

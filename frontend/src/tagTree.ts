@@ -1,4 +1,5 @@
 import type { TagNode, TagNodeExport } from './tagTypes'
+import { randomId } from './ids'
 
 type RawTagNode = {
   name: string
@@ -6,12 +7,8 @@ type RawTagNode = {
   data?: string
 }
 
-function createId() {
-  return globalThis.crypto?.randomUUID?.() ?? `id_${Math.random().toString(16).slice(2)}`
-}
-
 export function withIds(node: RawTagNode): TagNode {
-  const id = createId()
+  const id = randomId('id_')
   if ('children' in node && node.children) {
     return { id, name: node.name, children: node.children.map(withIds) }
   }
