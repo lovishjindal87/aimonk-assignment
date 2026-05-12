@@ -11,7 +11,7 @@ This project uses **PostgreSQL** for local and hosted deployments. SQLite is sti
 ## Prerequisites
 
 - **Node.js** (for the frontend)
-- **Python 3.11** (`backend/runtime.txt` for Render, `backend/.python-version` for Vercel)
+- **Python 3.12** — use `python3.12` locally; `backend/.python-version` and `backend/runtime.txt` pin **3.12** for Vercel / Render
 - **PostgreSQL** — create an empty database (e.g. `aimonk`) and note host, port, user, password
 
 ## Run locally
@@ -22,7 +22,7 @@ From the repo root:
 
 ```bash
 cd backend
-python3.11 -m venv .venv
+python3.12 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env
